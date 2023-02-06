@@ -24,4 +24,18 @@ public class UserPostgresAdapter implements UserDatabase {
         return userPostgresRepository.findByUserName(userName)
                 .flatMap(userPostgresConverter::convertUserPostgresToUserDomain);
     }
+
+    @Override
+    public Mono<User> save(User user) {
+        return userPostgresConverter.convertUserDomainToUserPostgres(user)
+                .flatMap(userPostgresRepository::save)
+                .flatMap(userPostgresConverter::convertUserPostgresToUserDomain);
+    }
+
+    @Override
+    public Mono<Boolean> checkUser(String userName, String email) {
+        return userPostgresRepository.findByUserNameAndEmail(userName, email)
+                .flatMap(userData -> Mono.just(true))
+                .switchIfEmpty(Mono.defer(() -> Mono.just(false)));
+    }
 }

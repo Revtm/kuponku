@@ -8,8 +8,8 @@ import java.math.BigInteger;
 import java.time.LocalDateTime;
 
 @Data
-@Table("userdata")
-public class UserPostgres {
+@Table("user_account")
+public class UserPostgres{
     @Id
     private BigInteger id;
     private String userName;

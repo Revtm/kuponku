@@ -5,4 +5,6 @@ import reactor.core.publisher.Mono;
 
 public interface UserDatabase {
     Mono<User> findByUserName(String userName);
+    Mono<User> save(User user);
+    Mono<Boolean> checkUser(String userName, String email);
 }

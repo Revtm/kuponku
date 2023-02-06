@@ -21,4 +21,18 @@ public class UserPostgresConverter {
 
         return Mono.just(user);
     }
+
+    public Mono<UserPostgres> convertUserDomainToUserPostgres(User user){
+        UserPostgres userPostgres = new UserPostgres();
+        userPostgres.setId(user.getId());
+        userPostgres.setUserName(user.getUserName());
+        userPostgres.setPassword(user.getPassword());
+        userPostgres.setEmail(user.getEmail());
+        userPostgres.setRole(user.getRole());
+        userPostgres.setStatus(user.getStatus());
+        userPostgres.setCreatedAt(user.getCreatedAt());
+        userPostgres.setUpdatedAt(user.getUpdatedAt());
+
+        return Mono.just(userPostgres);
+    }
 }

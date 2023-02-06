@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+
 @Component
 @Slf4j
 public class UserCommandImpl implements UserCommand {
@@ -24,7 +27,20 @@ public class UserCommandImpl implements UserCommand {
 
     @Override
     public Mono<User> signUp(User user) {
-        return null;
+        return userDatabase.checkUser(user.getUserName(), user.getEmail())
+                .flatMap(check -> {
+                    if(check){
+                        return Mono.error(new RuntimeException());
+                    }
+
+                    LocalDateTime time = LocalDateTime.now(ZoneId.of("Asia/Jakarta"));
+                    user.setPassword(userService.hashPassword(user.getPassword()));
+                    user.setStatus(Boolean.TRUE);
+                    user.setCreatedAt(time);
+                    user.setUpdatedAt(time);
+
+                    return userDatabase.save(user);
+                });
     }
 
     @Override

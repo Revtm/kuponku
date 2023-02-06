@@ -23,7 +23,8 @@ public class UserRouter {
 
     @Bean
     RouterFunction<ServerResponse> publicRoutes(UserHandler handler){
-        return route(POST("/login").and(accept(MediaType.APPLICATION_JSON)), handler::login);
+        return route(POST("/login").and(accept(MediaType.APPLICATION_JSON)), handler::login)
+                .andRoute(POST("/signup").and(accept(MediaType.APPLICATION_JSON)), handler::signUp);
     }
 
     @Bean
