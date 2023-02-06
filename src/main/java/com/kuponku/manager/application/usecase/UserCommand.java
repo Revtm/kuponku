@@ -6,4 +6,5 @@ import reactor.core.publisher.Mono;
 public interface UserCommand {
     Mono<User> signUp(User user);
     Mono<User> login(User user);
+    Mono<User> getUser(String userName);
 }

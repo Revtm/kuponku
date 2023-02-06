@@ -1,6 +1,6 @@
 package com.kuponku.manager.application.port.input.user;
 
-import com.kuponku.manager.application.port.output.coupon.UserDatabase;
+import com.kuponku.manager.application.port.output.UserDatabase;
 import com.kuponku.manager.application.usecase.UserCommand;
 import com.kuponku.manager.domain.entity.user.User;
 import com.kuponku.manager.domain.service.user.UserService;
@@ -56,5 +56,10 @@ public class UserCommandImpl implements UserCommand {
                     loginUser.setToken(token);
                     return Mono.just(loginUser);
                 });
+    }
+
+    @Override
+    public Mono<User> getUser(String userName) {
+        return userDatabase.findByUserName(userName);
     }
 }

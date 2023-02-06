@@ -1,7 +1,7 @@
 package com.kuponku.manager.adapter.output.user;
 
 import com.kuponku.manager.adapter.output.user.converter.UserPostgresConverter;
-import com.kuponku.manager.application.port.output.coupon.UserDatabase;
+import com.kuponku.manager.application.port.output.UserDatabase;
 import com.kuponku.manager.domain.entity.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -34,7 +34,7 @@ public class UserPostgresAdapter implements UserDatabase {
 
     @Override
     public Mono<Boolean> checkUser(String userName, String email) {
-        return userPostgresRepository.findByUserNameAndEmail(userName, email)
+        return userPostgresRepository.findByUserNameOrEmail(userName, email)
                 .flatMap(userData -> Mono.just(true))
                 .switchIfEmpty(Mono.defer(() -> Mono.just(false)));
     }

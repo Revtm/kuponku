@@ -1,4 +1,4 @@
-package com.kuponku.manager.application.port.output.coupon;
+package com.kuponku.manager.application.port.output;
 
 import com.kuponku.manager.domain.entity.user.User;
 import reactor.core.publisher.Mono;

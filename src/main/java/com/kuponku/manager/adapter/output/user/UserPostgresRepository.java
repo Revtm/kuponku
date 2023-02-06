@@ -8,5 +8,5 @@ import java.math.BigInteger;
 
 public interface UserPostgresRepository extends ReactiveCrudRepository<UserPostgres, BigInteger> {
     Mono<UserPostgres> findByUserName(String userName);
-    Mono<UserPostgres> findByUserNameAndEmail(String userName, String email);
+    Mono<UserPostgres> findByUserNameOrEmail(String userName, String email);
 }

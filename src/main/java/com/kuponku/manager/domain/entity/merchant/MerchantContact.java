@@ -6,7 +6,7 @@ import java.math.BigInteger;
 
 @Data
 public class MerchantContact {
-    private String merchantUserName;
+    private BigInteger id;
     private String platform;
     private String description;
 }
