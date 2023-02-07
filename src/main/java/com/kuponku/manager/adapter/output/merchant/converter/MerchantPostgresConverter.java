@@ -15,6 +15,8 @@ public class MerchantPostgresConverter {
         merchant.setDescription(merchantPostgres.getDescription());
         merchant.setAddress(merchantPostgres.getAddress());
         merchant.setFollower(merchantPostgres.getFollower());
+        merchant.setCreatedAt(merchantPostgres.getCreatedAt());
+        merchant.setUpdatedAt(merchantPostgres.getUpdatedAt());
 
         return Mono.just(merchant);
     }

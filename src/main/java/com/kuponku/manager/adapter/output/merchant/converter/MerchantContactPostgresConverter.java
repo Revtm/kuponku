@@ -11,7 +11,7 @@ public class MerchantContactPostgresConverter {
         MerchantContact contact = new MerchantContact();
         contact.setId(contactPostgres.getId());
         contact.setPlatform(contactPostgres.getPlatform());
-        contact.setDescription(contactPostgres.getDescription());
+        contact.setLink(contactPostgres.getLink());
 
         return Mono.just(contact);
     }

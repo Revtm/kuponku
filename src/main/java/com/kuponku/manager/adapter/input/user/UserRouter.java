@@ -22,13 +22,13 @@ public class UserRouter {
     }
 
     @Bean
-    RouterFunction<ServerResponse> publicRoutes(UserHandler handler){
+    RouterFunction<ServerResponse> publicUserRoutes(UserHandler handler){
         return route(POST("/login").and(accept(MediaType.APPLICATION_JSON)), handler::login)
                 .andRoute(POST("/signup").and(accept(MediaType.APPLICATION_JSON)), handler::signUp);
     }
 
     @Bean
-    RouterFunction<ServerResponse> privateRoutes(UserHandler handler){
+    RouterFunction<ServerResponse> privateUserRoutes(UserHandler handler){
         return route(POST("/admin/logout").and(accept(MediaType.APPLICATION_JSON)), handler::logout)
                 .filter(userFIlter);
     }

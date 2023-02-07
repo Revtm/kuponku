@@ -1,23 +1,23 @@
-package com.kuponku.manager.adapter.output.merchant.data;
+package com.kuponku.manager.adapter.input.merchant.data;
 
+import com.kuponku.manager.adapter.input.user.data.UserResponse;
 import lombok.Data;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Table;
 
 import java.math.BigInteger;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
-@Table("merchant")
-public class MerchantPostgres {
-    @Id
+public class MerchantResponse {
     private BigInteger id;
-    private BigInteger userAccountId;
+    private UserResponse user;
     private String name;
     private String logo;
     private String description;
     private String address;
+    private List<MerchantContactResponse> contact;
     private BigInteger follower;
+    private List<MerchantCouponResponse> couponList;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

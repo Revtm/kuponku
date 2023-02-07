@@ -5,6 +5,7 @@ import com.kuponku.manager.domain.entity.user.User;
 import lombok.Data;
 
 import java.math.BigInteger;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -18,4 +19,6 @@ public class Merchant {
     private List<MerchantContact> contact;
     private BigInteger follower;
     private List<Coupon> couponList;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 }

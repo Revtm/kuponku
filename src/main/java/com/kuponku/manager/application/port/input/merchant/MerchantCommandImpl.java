@@ -7,6 +7,7 @@ import com.kuponku.manager.application.usecase.MerchantCommand;
 import com.kuponku.manager.application.usecase.UserCommand;
 import com.kuponku.manager.domain.entity.merchant.Merchant;
 import com.kuponku.manager.domain.entity.merchant.MerchantContact;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
@@ -15,6 +16,7 @@ import reactor.core.publisher.Mono;
 import java.math.BigInteger;
 
 @Component
+@Slf4j
 public class MerchantCommandImpl implements MerchantCommand {
     private final MerchantDatabase merchantDatabase;
     private final MerchantContactDatabase merchantContactDatabase;

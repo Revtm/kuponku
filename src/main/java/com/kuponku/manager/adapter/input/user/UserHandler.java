@@ -2,9 +2,10 @@ package com.kuponku.manager.adapter.input.user;
 
 import com.kuponku.manager.adapter.input.user.converter.UserRestConverter;
 import com.kuponku.manager.adapter.input.user.data.UserLoginRequest;
+import com.kuponku.manager.adapter.input.user.data.UserLoginResponse;
 import com.kuponku.manager.adapter.input.user.data.UserRequest;
+import com.kuponku.manager.adapter.input.user.data.UserResponse;
 import com.kuponku.manager.application.usecase.UserCommand;
-import com.kuponku.manager.domain.entity.user.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,10 +31,12 @@ public class UserHandler {
         return request.bodyToMono(UserRequest.class)
                 .flatMap(userRestConverter::convertUserRequestToUserDomain)
                 .flatMap(userCommand::signUp)
-                .flatMap(createdUser -> {
+                .flatMap(userRestConverter::convertUserToUserResponse)
+                .flatMap(createdUserResponse -> {
                     return ServerResponse
                             .status(HttpStatus.CREATED)
-                            .contentType(MediaType.APPLICATION_JSON).build();
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .body(Mono.just(createdUserResponse), UserResponse.class);
                 }).onErrorResume(e -> {
                     if(e instanceof RuntimeException){
                         log.error("error: {}", e.getMessage());
@@ -50,11 +53,12 @@ public class UserHandler {
         return request.bodyToMono(UserLoginRequest.class)
                 .flatMap(userRestConverter::convertUserLoginRequestToUserDomain)
                 .flatMap(userCommand::login)
-                .flatMap(userData -> {
+                .flatMap(userRestConverter::convertUserToUserLoginResponse)
+                .flatMap(userResponse -> {
                     return ServerResponse
                             .ok()
                             .contentType(MediaType.APPLICATION_JSON)
-                            .body(Mono.just(userData), User.class);
+                            .body(Mono.just(userResponse), UserLoginResponse.class);
                 }).switchIfEmpty(ServerResponse.notFound().build());
     }
 
